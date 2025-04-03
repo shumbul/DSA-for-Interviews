@@ -1,0 +1,57 @@
+// 73. Set Matrix Zeroes - https://leetcode.com/problems/set-matrix-zeroes/
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& mat) {
+        // in-place solution
+        // store 0s in 0th row and column
+        // handle for 0th row and col separately using vars
+        // to modify matrix, first modify except 0th rows and cols only
+        int n=mat.size(), m=mat[0].size();
+        bool col0=mat[0][0]==0?true:false, row0=col0;
+        // only checking 1st col
+        for(int i=0;i<n;i++){
+            if(mat[i][0]==0)
+                col0=true;
+        }
+        // only checking 1st row
+        for(int j=0;j<m;j++){
+            if(mat[0][j]==0)
+                row0=true;
+        }
+        // populating 1st row & col
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==0){
+                    // cout<<i<<' '<<j<<'\n';
+                    mat[0][j]=0, mat[i][0]=0;
+                }
+            }
+        }
+        // finally, changing values as required
+        for(int i=1;i<n;i++){
+            if(mat[i][0]==0)
+                for(int j=1;j<m;j++){
+                    mat[i][j]=0;
+                }
+        }
+        for(int j=1;j<m;j++){
+            if(mat[0][j]==0)
+                for(int i=1;i<n;i++){
+                    mat[i][j]=0;
+                }
+        }
+        if(col0==true){
+            for(int i=0;i<n;i++)
+                mat[i][0]=0;
+        }
+        if(row0==true){
+            for(int j=0;j<m;j++)
+                mat[0][j]=0;
+        }
+
+        /*
+            O(n*m) Time, O(1) Space
+        */
+    }
+};
